@@ -19,10 +19,10 @@ const DIFF_OPTIONS = {
  * @param {Object} options Опции
  * @param {String} options.etalonPath Путь до эталона
  * @param {String} options.magicPath Путь до шаблонизированного файла
- * @returns {?Promise}
+ * @returns {Promise}
  */
 const saveCompatesSuggest = (options) => {
-    const htmlDiffer = new HtmlDiffer(DIFF_OPTIONS);
+    const htmlDiffer = new HtmlDiffer('bem', DIFF_OPTIONS);
     const etalonPath = options.etalonPath;
     const magicPath = options.magicPath;
 
@@ -53,17 +53,19 @@ const saveCompatesSuggest = (options) => {
                 .run()
                 .then((answer) => {
                 if (answer === 'Yes') {
-            console.log('Перезаписываем файл.');
-            fs.createReadStream(magicPath)
-                .pipe(fs.createWriteStream(etalonPath));
-            console.log('Успешно!');
-            return;
-        }
-        console.log('Не перезаписываем файл');
-    })
-    .catch((error) => {
-            throw Error(`Error: "${error}".`);
-    });
+                        console.log('Перезаписываем файл.');
+                        fs.createReadStream(magicPath)
+                            .pipe(fs.createWriteStream(etalonPath));
+                        console.log('Успешно!');
+                        return;
+                    }
+                    console.log('Не перезаписываем файл');
+                })
+                .catch((error) => {
+                        throw Error(`Error: "${error}".`);
+                });
+
+        return Promise.resolve();
     }
 };
 

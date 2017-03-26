@@ -4,6 +4,7 @@ const HtmlDiffer = require('html-differ').HtmlDiffer;
 const logger = require('html-differ/lib/logger');
 const fs = require('fs');
 const List = require('prompt-list');
+const chalk = require('chalk');
 
 const DIFF_OPTIONS = {
     ignoreAttributes: [],
@@ -36,15 +37,16 @@ const saveCompatesSuggest = (options) => {
     if (!isEqual) {
         console.log();
         console.log();
+        console.log(chalk.white.bold('  Attention!'));
+        console.log(chalk.white(`    The etalon file ${chalk.white.bold(etalonPath)} has differences with actual html`));
         console.log();
-        console.log(etalonPath);
-        console.error('Эталонный файл различается');
         logger.logDiffText(diff);
+        console.log();
 
         return new List({
                 type: 'list',
                 name: 'order',
-                message: `Заменить эталонный файл ${etalonPath}?`,
+                message: `Replace the etalon file ${etalonPath} with the actual result?`,
                 choices: [
                     'No',
                     'Yes'
@@ -52,17 +54,17 @@ const saveCompatesSuggest = (options) => {
             })
                 .run()
                 .then((answer) => {
-                if (answer === 'Yes') {
-                        console.log('Перезаписываем файл.');
+                    if (answer === 'Yes') {
+                        console.log('Replacing..');
                         fs.createReadStream(magicPath)
                             .pipe(fs.createWriteStream(etalonPath));
-                        console.log('Успешно!');
+                        console.log(chalk.black.bgGreen(' Success! '));
                         return;
                     }
-                    console.log('Не перезаписываем файл');
+                    console.log('No');
                 })
                 .catch((error) => {
-                        throw Error(`Error: "${error}".`);
+                    throw Error(`Error: "${error}".`);
                 });
     }
     return Promise.resolve();

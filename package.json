@@ -1,0 +1,32 @@
+{
+  "name": "save-compares-suggest",
+  "version": "1.0.0",
+  "description": "compares files and suggest rewrite etalon file",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ckpuna4/save-compares-suggest.git"
+  },
+  "author": [
+    {
+      "name": "Nikolay Tolochnyy",
+      "mail": "nikola-tolochny@mail.ru"
+    },
+    {
+      "name": "Anashev Artem",
+      "mail": "madmed677@gmail.com"
+    }
+  ],
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ckpuna4/save-compares-suggest/issues"
+  },
+  "homepage": "https://github.com/Ckpuna4/save-compares-suggest#readme",
+  "dependencies": {
+    "html-differ": "^1.3.4",
+    "prompt-list": "^0.1.2"
+  }
+}

@@ -64,9 +64,8 @@ const saveCompatesSuggest = (options) => {
                 .catch((error) => {
                         throw Error(`Error: "${error}".`);
                 });
-
-        return Promise.resolve();
     }
+    return Promise.resolve();
 };
 
 module.exports = saveCompatesSuggest;

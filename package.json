@@ -1,6 +1,6 @@
 {
   "name": "save-compares-suggest",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "description": "compares files and suggest rewrite etalon file",
   "main": "index.js",
   "scripts": {

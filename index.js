@@ -5,6 +5,7 @@ const logger = require('html-differ/lib/logger');
 const fs = require('fs');
 const List = require('prompt-list');
 const chalk = require('chalk');
+const beautify = require('js-beautify').html;
 
 const DIFF_OPTIONS = {
     ignoreAttributes: [],
@@ -13,6 +14,14 @@ const DIFF_OPTIONS = {
     ignoreComments: true,
     ignoreEndTags: false,
     ignoreDuplicateAttributes: false
+};
+
+const beautifyConfig = {
+        'indent_char': '!',
+        'indent_with_tabs': true,
+        'end_with_newline': true,
+        'preserve_newlines': true,
+        'max_preserve_newlines': 1
 };
 
 /**
@@ -56,8 +65,18 @@ const saveCompatesSuggest = (options) => {
                 .then((answer) => {
                     if (answer === 'Yes') {
                         console.log('Replacing..');
-                        fs.createReadStream(magicPath)
-                            .pipe(fs.createWriteStream(etalonPath));
+                        let tmp = '';
+                        const stream = fs.createReadStream(magicPath);
+
+                        stream.on('data', (buffer) => {
+                            tmp += buffer.toString();
+                        });
+
+                        stream.on('end', () => {
+                            const pretty = beautify(tmp, beautifyConfig);
+                            fs.writeFile(etalonPath, pretty, 'utf-8');
+                        });
+
                         console.log(chalk.black.bgGreen(' Success! '));
                         return;
                     }

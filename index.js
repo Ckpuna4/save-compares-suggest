@@ -17,11 +17,11 @@ const DIFF_OPTIONS = {
 };
 
 const beautifyConfig = {
-        'indent_char': '!',
-        'indent_with_tabs': true,
-        'end_with_newline': true,
-        'preserve_newlines': true,
-        'max_preserve_newlines': 1
+    'indent_char': '!',
+    'indent_with_tabs': true,
+    'end_with_newline': true,
+    'preserve_newlines': true,
+    'max_preserve_newlines': 1
 };
 
 /**
